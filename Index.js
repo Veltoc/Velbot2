@@ -1,7 +1,7 @@
 //const { run } = require("./spreadsheets.js");
 const Discord = require("discord.js");
 const config = require("dotenv").config();
-const { prefix, token } = require('./config.json');
+const { prefix} = require('./config.json');
 const fs = require("fs");
 
 const { google } = require("googleapis");
@@ -64,9 +64,7 @@ client.on('message', message => {
 });
 
 
-client.login(token).then(() => {
-   // run();
-});
+client.login(process.env.BOT_TOKEN);//BOT_TOKEN is the Client Secret
 
 function findAndUpdate(message,amount,reason) {
     //create sheets client
