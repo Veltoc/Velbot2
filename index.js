@@ -17,7 +17,7 @@ client.on("ready", () => {
     client.channels.fetch(channelId)
         .then(channel => channelDef = channel)
         .catch(console.error);
-    client.user.setActivity("=help");
+    client.user.setActivity("send =help");
 });
 
 
