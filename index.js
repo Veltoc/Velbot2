@@ -17,7 +17,7 @@ client.on("ready", () => {
     client.channels.fetch(channelId)
         .then(channel => channelDef = channel)
         .catch(console.error);
-    client.user.setActivity("=help");
+    client.user.setActivity("=help. now 24/7");
 });
 
 
@@ -140,9 +140,9 @@ function update(message, num, amount, reason) {
                 }, (err, name) => {
                     console.log(name);
                     if (amount < 0) {
-                        channelDef.send(`Took ${-amount} scrap from ${name.data.values[0][0]}\n **Reason:** for ${reason} \n${v - amount}->${v}`)
+                        channelDef.send(`Took ${-amount} scrap from ${name.data.values[0][0]}\n**Reason:** ${reason} \n${v - amount}->${v}`)
                     } else {
-                        channelDef.send(`Gave ${amount} scrap to ${name.data.values[0][0]}\n **Reason:** for ${reason} \n ${v - amount}->${v}`)
+                        channelDef.send(`Gave ${amount} scrap to ${name.data.values[0][0]}\n**Reason:** ${reason} \n${v - amount}->${v}`)
                     }
                 });
 
