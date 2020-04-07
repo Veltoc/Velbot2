@@ -17,7 +17,7 @@ client.on("ready", () => {
     client.channels.fetch(channelId)
         .then(channel => channelDef = channel)
         .catch(console.error);
-    client.user.setActivity("=help. now 24/7");
+    client.user.setActivity("=help");
 });
 
 
@@ -45,11 +45,13 @@ client.on('message', message => {
         const msg = message.content.split(" ");
         //console.log(msg[1]);
         var changeNum = parseInt(msg[1]);
-        //console.log(changeNum);
         var tReason = "";
+        //console.log(changeNum);
         if (msg.length > 2) {
-            tReason = msg[2];
-        } else {
+            for (var i = 2; i < msg.length; i++) {
+                tReason += msg[i];
+            }
+        }else {
             tReason = "update"
         }
 
@@ -60,15 +62,21 @@ client.on('message', message => {
         addLoot(message);
     } else if (message.content.startsWith(`${prefix}info`)) {
         GetInfo(message);
+    } else if (message.content.startsWith(`${prefix}say`)) {
+        var str = message.content.slice(5);
+        var list = str.split(" |");
+        client.channels.fetch(list[0])
+            .then(channel => channel.send(list[1]))
+            .catch(console.error);
     }
 });
 
 
+//client.login(Token);//BOT_TOKEN is the Client Secret
+
 client.login(process.env.BOT_TOKEN);//BOT_TOKEN is the Client Secret
 
 function findAndUpdate(message, amount, reason) {
-    //create sheets client
-
 
     const range = "Player Tracker!A2:A32";
     var check = false;
@@ -138,11 +146,11 @@ function update(message, num, amount, reason) {
                     spreadsheetId,
                     range,
                 }, (err, name) => {
-                    console.log(name);
+                    //console.log(name);
                     if (amount < 0) {
-                        channelDef.send(`Took ${-amount} scrap from ${name.data.values[0][0]}\n**Reason:** ${reason} \n${v - amount}->${v}`)
+                        channelDef.send(`Took ${-amount} scrap from ${name.data.values[0][0]}\n **Reason:** for ${reason} \n${v - amount}->${v}`);
                     } else {
-                        channelDef.send(`Gave ${amount} scrap to ${name.data.values[0][0]}\n**Reason:** ${reason} \n${v - amount}->${v}`)
+                        channelDef.send(`Gave ${amount} scrap to ${name.data.values[0][0]}\n **Reason:** for ${reason} \n ${v - amount}->${v}`);
                     }
                 });
 
@@ -197,7 +205,7 @@ function GetInfo(message) {
             var i = 0;
             for (i = 0; i < result.data.values.length; i++) {
                 //console.log(result.data.values[i][0]);
-                if (result.data.values[i][0].toLowerCase().startsWith(str)) {
+                if (result.data.values[i][0].toLowerCase().includes(str)) {
                     const range = `Materials & Recipes!A${i + 2}:I${i + 2}`;
                     sheets.spreadsheets.values.get({
                         spreadsheetId,
@@ -210,7 +218,6 @@ function GetInfo(message) {
                             message.channel.send(`**Item: ${name.data.values[0][0]}**\n**Material:** ${name.data.values[0][1]} **Amount:** ${name.data.values[0][2]} \n**Type:** ${name.data.values[0][3]}\n**Attunment:** ${name.data.values[0][4]}\n**Tool:** ${name.data.values[0][7]} **Time:** ${name.data.values[0][8]}\n**Description: **${name.data.values[0][6]}`)
                         }
                     });
-                    break;
                 }
             }
         }
