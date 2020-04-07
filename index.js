@@ -148,9 +148,9 @@ function update(message, num, amount, reason) {
                 }, (err, name) => {
                     //console.log(name);
                     if (amount < 0) {
-                        channelDef.send(`Took ${-amount} scrap from ${name.data.values[0][0]}\n **Reason:** for ${reason} \n${v - amount}->${v}`);
+                        channelDef.send(`Took ${-amount} scrap from ${name.data.values[0][0]}\n **Reason:** ${reason} \n${v - amount}->${v}`);
                     } else {
-                        channelDef.send(`Gave ${amount} scrap to ${name.data.values[0][0]}\n **Reason:** for ${reason} \n ${v - amount}->${v}`);
+                        channelDef.send(`Gave ${amount} scrap to ${name.data.values[0][0]}\n **Reason:** ${reason} \n ${v - amount}->${v}`);
                     }
                 });
 
@@ -215,7 +215,7 @@ function GetInfo(message) {
                             // Handle error
                             console.log(err);
                         } else {
-                            message.channel.send(`**Item: ${name.data.values[0][0]}**\n**Material:** ${name.data.values[0][1]} **Amount:** ${name.data.values[0][2]} \n**Type:** ${name.data.values[0][3]}\n**Attunment:** ${name.data.values[0][4]}\n**Tool:** ${name.data.values[0][7]} **Time:** ${name.data.values[0][8]}\n**Description: **${name.data.values[0][6]}`)
+                            message.channel.send(`**Item: ${name.data.values[0][0]}**\n**Material:** ${name.data.values[0][1]} **Amount:** ${name.data.values[0][2]} \n**Type:** ${name.data.values[0][3]}\n**Attunment:** ${name.data.values[0][4]}\n**Tool:** ${name.data.values[0][7]} **Time:** ${name.data.values[0][8]}\n**Description: **${name.data.values[0][6]}\n __________________________________________________________`);
                         }
                     });
                 }
