@@ -17,7 +17,7 @@ client.on("ready", () => {
     client.channels.fetch(channelId)
         .then(channel => channelDef = channel)
         .catch(console.error);
-    client.user.setActivity("send =help");
+    client.user.setActivity("Send =help");
 });
 
 
@@ -162,7 +162,7 @@ function update(message, num, amount, reason) {
 
 function addLoot(message) {
     var str = message.content.slice(6);
-    var list = str.split("|");
+    var list = str.split(" | ");
     const range = "Materials & Recipes!A2:I2";
     const insertDataOption = "INSERT_ROWS";
     const valueInputOption = "RAW";
