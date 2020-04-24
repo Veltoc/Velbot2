@@ -161,11 +161,11 @@ client.on('message', message => {
                 }
             } else if (str.toLowerCase() === `artistic individual`) {
                 if (message.member.guild.id === `539102696385544232`) {//nm
-                    if (message.member.roles.cache.has("539125532982509568")) {
-                        message.member.roles.remove("539125532982509568");
+                    if (message.member.roles.cache.has("571816781363150860")) {
+                        message.member.roles.remove("571816781363150860");
                         message.channel.send(`Removed rank Artistic Individual from <@${message.author.id}>`);
                     } else {
-                        message.member.roles.add("539125532982509568");
+                        message.member.roles.add("571816781363150860");
                         message.channel.send(`Added rank Artistic Individual to <@${message.author.id}>`);
                     }
                 }
