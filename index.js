@@ -116,9 +116,31 @@ client.on('message', message => {
         } else if (message.content === `${prefix}beep`) {
             message.channel.send('Boop.');
         } else if (message.content === `${prefix}ranks`) {
-            message.channel.send(`**Ranks**\n-Intitate Levels 1-4\n-Adept Levels 5-8\n-Journeyman Levels 9-12\n-Expert Levels 13-15\n-Master Levels 15-20\nuse ${prefix}rank [rank]`);
+            const exampleEmbed = new Discord.MessageEmbed()
+                .setColor('#f1ba10')
+                .setTitle(`**Available ranks**`)
+                //.setAuthor(oldMessage.author.tag, oldMessage.author.avatarURL())
+                .addField(`Initiate`, `Levels 1-4`)
+                .addField(`Adept`, `Levels 5-8`)
+                .addField(`Journeyman`, `Levels 9-12`)
+                .addField(`Expert`, `Levels 13-15`)
+                .addField(`Master`, `Levels 15-20`)
+                .setFooter(`use ${prefix}rank [rank]`);
+            message.channel.send(exampleEmbed);
         } else if (message.content === `${prefix}help`) {
-            message.channel.send(`**Velbot Help menu:** \n**Prefix: **${prefix} \n**List ranks:**\nranks\n**Joining ranks:**\nrank [rank]\n**Entering Materials:** \nloot [Name] | [Material name] | [Amount] | [Type] | [attunement] | [Description] | [Tool] | [Time] \n\n**Get info on an item:** \ninfo [item name, or portion of name]\n\n**Updating gold: **\nupdate [number (can be negative)] [reason(can be blank)] \n\n**Gold from report:** \nreport \n`);
+        const exampleEmbed = new Discord.MessageEmbed()
+                .setColor('#f1ba10')
+                .setTitle(`**VelbotHelp Menu**`)
+                .setDescription(`**Prefix: ${prefix}**`)
+                //.setAuthor(oldMessage.author.tag, oldMessage.author.avatarURL())
+                .addField(`List ranks`, `${prefix}ranks`)
+                .addField(`Join ranks`, `${prefix}rank [rank]`)
+                .addField(`Entering Materials`, `${prefix}loot [Name] | [Material name] | [Amount] | [Type] | [attunement] | [Description] | [Tool] | [Time]`)
+                .addField(`Get info on an item`, `${prefix}info [item name, or portion of name]`)
+                .addField(`Updating gold`, `${prefix}update [number (can be negative)] [reason(optional)]`)
+                .addField(`Gold from report`, `${prefix}report`)
+                .setFooter(`Velbot provided with love by Veltoc`);
+            message.channel.send(exampleEmbed);
         } else if (message.content === `${prefix}user-info`) {
             message.channel.send(`Your username: ${message.author.username}\nYour ID: ${message.author.id}`);
         } else if (message.content === `${prefix}report`) {
