@@ -51,7 +51,7 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
             .catch(console.error);
     } else if (oldMessage.guild.id === `645015625156263977`) {
         client.channels.fetch(`696844952533073950`)
-            .then(channel => channel.send(exampleEmbed);)
+            .then(channel => channel.send(exampleEmbed))
             .catch(console.error);
     }
 
