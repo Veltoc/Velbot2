@@ -41,15 +41,15 @@ client.on('messageDelete', (message) => {
             .addField('', message.content)
             .setTimestamp(new Date())
             .setFooter(`User ID: ${message.author.id}`);
-        if (oldMessage.guild.id === `539102696385544232`) {
+        if (message.guild.id === `539102696385544232`) {
             client.channels.fetch(`539244885937618944`)
                 .then(channel => channel.send(exampleEmbed))
                 .catch(console.error);
-        } else if (oldMessage.guild.id === `699498339393208453`) {
+        } else if (message.guild.id === `699498339393208453`) {
             client.channels.fetch(`699815237733580933`)
                 .then(channel => channel.send(exampleEmbed))
                 .catch(console.error);
-        } else if (oldMessage.guild.id === `645015625156263977`) {
+        } else if (message.guild.id === `645015625156263977`) {
             client.channels.fetch(`696844952533073950`)
                 .then(channel => channel.send(exampleEmbed))
                 .catch(console.error);
