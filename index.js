@@ -115,8 +115,10 @@ client.on('message', message => {
             message.channel.send('Pong.');
         } else if (message.content === `${prefix}beep`) {
             message.channel.send('Boop.');
+        } else if (message.content === `${prefix}ranks`) {
+            message.channel.send('**Ranks**\nIntitate Levels 1-4\nAdept Levels 5-8\nJourneyman Levels 9-12\nExpert Levels 13-15\nMaster Levels 15-20\n use ${prefix}rank [rank]');
         } else if (message.content === `${prefix}help`) {
-            message.channel.send(`**Velbot Help menu:** \n**Prefix: **${prefix} \n**Entering Materials:** \n    loot [Name] | [Material name] | [Amount] | [Type] | [attunement] | [Description] | [Tool] | [Time] \n\n**Get info on an item:** \n  info [item name, or portion of name]\n\n**Updating gold: **\n  update [number (can be negative)] [reason(can be blank)] \n\n**Gold from report:** \n  report \n`);
+            message.channel.send(`**Velbot Help menu:** \n**Prefix: **${prefix} \n**List ranks:**\n     ranks\n**Joining ranks:**\n     rank [rank]\n**Entering Materials:** \n    loot [Name] | [Material name] | [Amount] | [Type] | [attunement] | [Description] | [Tool] | [Time] \n\n**Get info on an item:** \n  info [item name, or portion of name]\n\n**Updating gold: **\n  update [number (can be negative)] [reason(can be blank)] \n\n**Gold from report:** \n  report \n`);
         } else if (message.content === `${prefix}user-info`) {
             message.channel.send(`Your username: ${message.author.username}\nYour ID: ${message.author.id}`);
         } else if (message.content === `${prefix}report`) {
