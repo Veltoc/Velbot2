@@ -34,11 +34,13 @@ client.on('guildMemberAdd', member => {
 });
 client.on('messageDelete', message => {
     if (!message.author.bot) {
+        var msg = message.content
+        if(msg.length > 1000)msg = msg.substring(0,1000)+"...";
         const exampleEmbed = new Discord.MessageEmbed()
             .setColor('#ff470f')
             .setDescription(`**Message sent by ${message.author} deleted in ${message.channel}**`)
             .setAuthor(message.author.tag, message.author.avatarURL())
-            .addField('Message', message.content)
+            .addField('Message', msg)
             .setTimestamp(new Date())
             .setFooter(`User ID: ${message.author.id}`);
         if (message.guild.id === `539102696385544232`) {
@@ -57,16 +59,18 @@ client.on('messageDelete', message => {
     }
 });
 client.on('messageUpdate', (oldMessage, newMessage) => {
-    //console.log(oldMessage.content);
-    //console.log(newMessage.content);
-    //console.log(`discordapp.com/channels/${oldMessage.guild.id}/${oldMessage.channel.id}/${oldMessage.id}`);
+    
     if (!oldMessage.author.bot && !newMessage.author.bot) {
+        var oldMsg = message.content
+        if(oldMsg.length > 1000)oldMsg = oldMsg.substring(0,1000)+"...";
+        var newMsg = message.content
+        if(newMsg.length > 1000)newMsg = newMsg.substring(0,1000)+"...";
     const exampleEmbed = new Discord.MessageEmbed()
         .setColor('#0099ff')
         .setDescription(`**Message edited in** ${oldMessage.channel} [jump to message](https://discordapp.com/channels/${oldMessage.guild.id}/${oldMessage.channel.id}/${oldMessage.id})`)
         .setAuthor(oldMessage.author.tag, oldMessage.author.avatarURL())
-        .addField('Before', oldMessage.content)
-        .addField('After', newMessage.content)
+        .addField('Before', oldMsg)
+        .addField('After', newMsg)
         .setTimestamp(new Date())
         .setFooter(`User ID: ${oldMessage.author.id}`);
     if (oldMessage.guild.id === `539102696385544232`) {
