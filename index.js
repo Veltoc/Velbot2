@@ -106,7 +106,7 @@ client.on('message', message => {
             else if (strMsg.includes("i'm back") || strMsg.includes("im back") || strMsg.includes("i am back")) {
                 var mem = message.guild.member(client.user);
                 mem.setNickname("Dad");
-                setTimeout(dad(mem), 1000);
+                setTimeout(dad(mem,message), 1000);
             }
         }
     if (strMsg.startsWith(`${prefix}`)) {
@@ -327,7 +327,7 @@ client.on('message', message => {
 //client.login(Token);//BOT_TOKEN is the Client Secret
 
 client.login(process.env.BOT_TOKEN);//BOT_TOKEN is the Client Secret
-function dad(mem) {
+function dad(mem,message) {
     message.channel.send(`Hi Back, I'm Dad`);
     mem.setNickname("Velbot");
 }
