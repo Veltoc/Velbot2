@@ -35,12 +35,13 @@ client.on('guildMemberAdd', member => {
 client.on('messageDelete', message => {
     if (!message.author.bot) {
         var msg = message.content
-        if(msg.length > 1000)msg = msg.substring(0,1000)+"...";
+        //if (msg.length == 0) msg = "unable to retreive message.";
+        else if(msg.length > 1000)msg = msg.substring(0,1000)+"...";
         const exampleEmbed = new Discord.MessageEmbed()
             .setColor('#ff470f')
             .setDescription(`**Message sent by ${message.author} deleted in ${message.channel}**`)
             .setAuthor(message.author.tag, message.author.avatarURL())
-            .addField('Message', msg)
+            .addField('Message', msg+" ")
             .setTimestamp(new Date())
             .setFooter(`User ID: ${message.author.id}`);
         if (message.guild.id === `539102696385544232`) {
