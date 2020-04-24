@@ -153,6 +153,7 @@ client.on('message', message => {
                 .addField(`Get info on an item`, `${prefix}info [item name, or portion of name]`)
                 .addField(`Updating gold`, `${prefix}update [number (can be negative)] [reason(optional)]`)
                 .addField(`Gold from report`, `${prefix}report`)
+                .addField(`List bits`, `${prefix}bits`)
                 .setFooter(`Velbot provided with love by Veltoc`);
             message.channel.send(exampleEmbed);
         } else if (strMsg === `${prefix}user-info`) {
