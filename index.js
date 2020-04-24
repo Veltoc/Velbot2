@@ -12,17 +12,17 @@ var spreadsheetId = "1MU0JltvmKgHPUApnPzPct94fpLXLhEAF74Z8PMt2bVk"//"1fKFnj8ehv3
 var channelId = "539231042440265728";//539231042440265728  696844952533073950
 var channelDef;
 var guild = "539102696385544232";
+const prefix = "?";
 
 client.on("ready", () => {
     console.log(`Logged in as ${client.user.tag} `);
     client.channels.fetch(channelId)
         .then(channel => channelDef = channel)
         .catch(console.error);
-    client.user.setActivity("Send =help");
+    client.user.setActivity(`Send ${prefix}help`);
 });
 
 
-//client.login('');
 client.on('guildMemberAdd', member => {
     if (member.guild.id === `539102696385544232`) {
         member.roles.add("539104026818510849");
@@ -35,15 +35,16 @@ client.on('guildMemberAdd', member => {
 client.on('messageDelete', message => {
     if (!message.author.bot) {
         var msg = message.content
-        //if (msg.length == 0) msg = "unable to retreive message.";
-        if(msg.length > 1000)msg = msg.substring(0,1000)+"...";
+        if (msg.length == 0) msg = "unable to retreive message.";
+        if (msg.length > 1000) msg = msg.substring(0, 1000) + "...";
         const exampleEmbed = new Discord.MessageEmbed()
             .setColor('#ff470f')
             .setDescription(`**Message sent by ${message.author} deleted in ${message.channel}**`)
             .setAuthor(message.author.tag, message.author.avatarURL())
-            .addField('Message', msg+" ")
+            .addField('Message', msg)
             .setTimestamp(new Date())
             .setFooter(`User ID: ${message.author.id}`);
+        if (message.attachments.size > 0) exampleEmbed.attachFiles(message.attachments.first().attachment);
         if (message.guild.id === `539102696385544232`) {
             client.channels.fetch(`539244885937618944`)
                 .then(channel => channel.send(exampleEmbed))
@@ -60,49 +61,65 @@ client.on('messageDelete', message => {
     }
 });
 client.on('messageUpdate', (oldMessage, newMessage) => {
-    
+
     if (!oldMessage.author.bot && !newMessage.author.bot) {
-        var oldMsg = oldMessage.content
-        if(oldMsg.length > 1000)oldMsg = oldMsg.substring(0,1000)+"...";
-        var newMsg = newMessage.content
-        if(newMsg.length > 1000)newMsg = newMsg.substring(0,1000)+"...";
-    const exampleEmbed = new Discord.MessageEmbed()
-        .setColor('#0099ff')
-        .setDescription(`**Message edited in** ${oldMessage.channel} [jump to message](https://discordapp.com/channels/${oldMessage.guild.id}/${oldMessage.channel.id}/${oldMessage.id})`)
-        .setAuthor(oldMessage.author.tag, oldMessage.author.avatarURL())
-        .addField('Before', oldMsg)
-        .addField('After', newMsg)
-        .setTimestamp(new Date())
-        .setFooter(`User ID: ${oldMessage.author.id}`);
-    if (oldMessage.guild.id === `539102696385544232`) {
-        client.channels.fetch(`539244885937618944`)
-            .then(channel => channel.send(exampleEmbed))
-            .catch(console.error);
-    } else if (oldMessage.guild.id === `699498339393208453`) {
-        client.channels.fetch(`699815237733580933`)
-            .then(channel => channel.send(exampleEmbed))
-            .catch(console.error);
-    } else if (oldMessage.guild.id === `645015625156263977`) {
-        client.channels.fetch(`696844952533073950`)
-            .then(channel => channel.send(exampleEmbed))
-            .catch(console.error);
-    }
+        var oldMsg = oldMessage.content;
+        if (oldMsg.length == 0) oldMsg = "unable to retreive message.";
+        if (oldMsg.length > 1000) oldMsg = oldMsg.substring(0, 1000) + "...";
+        var newMsg = newMessage.content;
+        if (newMsg.length == 0) newMsg = "unable to retreive message.";
+        if (newMsg.length > 1000) newMsg = newMsg.substring(0, 1000) + "...";
+        const exampleEmbed = new Discord.MessageEmbed()
+            .setColor('#0099ff')
+            .setDescription(`**Message edited in** ${oldMessage.channel} [jump to message](https://discordapp.com/channels/${oldMessage.guild.id}/${oldMessage.channel.id}/${oldMessage.id})`)
+            .setAuthor(oldMessage.author.tag, oldMessage.author.avatarURL())
+            .addField('Before', oldMsg)
+            .addField('After', newMsg)
+            .setTimestamp(new Date())
+            .setFooter(`User ID: ${oldMessage.author.id}`);
+        if (oldMessage.guild.id === `539102696385544232`) {
+            client.channels.fetch(`539244885937618944`)
+                .then(channel => channel.send(exampleEmbed))
+                .catch(console.error);
+        } else if (oldMessage.guild.id === `699498339393208453`) {
+            client.channels.fetch(`699815237733580933`)
+                .then(channel => channel.send(exampleEmbed))
+                .catch(console.error);
+        } else if (oldMessage.guild.id === `645015625156263977`) {
+            client.channels.fetch(`696844952533073950`)
+                .then(channel => channel.send(exampleEmbed))
+                .catch(console.error);
+        }
     }
 });
 
 client.on('message', message => {
-    //const defChannel = message.guild.channels.find("name", "crafting");
-    //defChannel.send("he");
-    if (!message.author.bot && message.content.startsWith(`${prefix}`)) {
+    if (!message.author.bot) {
+        var strMsg = message.content;
+        var startChar = bitMsg.substring(0, 1);
+        if (bitMsg.length < 144 && startChar !== "*" && startChar !== `"`) {
+            bitMsg = bitMsg.toLowerCase();
+            if (bitMsg.includes("uwu")) message.channel.send(`Don't you fucking UwU me!`);
+            else if (bitMsg.includes("owo")) message.channel.send(`What's this?`);
+            else if (bitMsg.includes("gloombreaker")) message.channel.send(`Did someone say "THE FAMED BLADE GLOOMBREAKER, CONQUEROR OF DEMONS, SLAYER OF DARKNESS, AND BRINGER OF LIGHT!"?`);
+            else if (bitMsg.includes("play despacito")) message.channel.send(`<https://www.youtube.com/watch?v=kJQP7kiw5Fk>`);
+            else if (bitMsg.includes("hello there")) message.channel.send(`General Kenobi`);
+            else if (bitMsg.includes("i'm back") || bitMsg.includes("im back") || bitMsg.includes("i am back")) {
+                var mem = message.guild.member(client.user);
+                mem.setNickname("Dad");
+                message.channel.send(`Hi Back, I'm Dad`);
+                mem.setNickname("Velbot");
+            }
+        }
+    if (strMsg.startsWith(`${prefix}`)) {
         if (message.guild != null && message.guild.id !== guild) {
-            
             if (message.guild.id === `539102696385544232`) {
                 channelId = "539231042440265728";
                 spreadsheetId = "1MU0JltvmKgHPUApnPzPct94fpLXLhEAF74Z8PMt2bVk";
-            }else if (message.guild.id === `699498339393208453`) {
+            } else if (message.guild.id === `699498339393208453`) {
                 channelId = "700593723658076210";
                 spreadsheetId = "1MMKCWQzCSa1NRScoIQbbonpbb4r0D5K8sN4MpVdqyAg";
-            }else if (message.guild.id === `645015625156263977`) {
+            } else if (message.guild.id === `645015625156263977`) {
                 channelId = "696844952533073950";
                 spreadsheetId = "15P14oaCnCs1o3cC3mmDXp6h0z-hEmyra0qknYJ-UQR0";
             }
@@ -112,11 +129,11 @@ client.on('message', message => {
         }
         //console.log(message.guild.id);
 
-        if (message.content === `${prefix}ping`) {
+        if (strMsg === `${prefix}ping`) {
             message.channel.send('Pong.');
-        } else if (message.content === `${prefix}beep`) {
+        } else if (strMsg === `${prefix}beep`) {
             message.channel.send('Boop.');
-        } else if (message.content === `${prefix}ranks`) {
+        } else if (strMsg === `${prefix}ranks`) {
             const exampleEmbed = new Discord.MessageEmbed()
                 .setColor('#f1ba10')
                 .setTitle(`**Available ranks**`)
@@ -128,8 +145,8 @@ client.on('message', message => {
                 .addField(`Master`, `Levels 15-20`)
                 .setFooter(`use ${prefix}rank [rank]`);
             message.channel.send(exampleEmbed);
-        } else if (message.content === `${prefix}help`) {
-        const exampleEmbed = new Discord.MessageEmbed()
+        } else if (strMsg === `${prefix}help`) {
+            const exampleEmbed = new Discord.MessageEmbed()
                 .setColor('#f1ba10')
                 .setTitle(`**Velbot Help Menu**`)
                 .setDescription(`**Prefix: ${prefix}**`)
@@ -142,16 +159,16 @@ client.on('message', message => {
                 .addField(`Gold from report`, `${prefix}report`)
                 .setFooter(`Velbot provided with love by Veltoc`);
             message.channel.send(exampleEmbed);
-        } else if (message.content === `${prefix}user-info`) {
+        } else if (strMsg === `${prefix}user-info`) {
             message.channel.send(`Your username: ${message.author.username}\nYour ID: ${message.author.id}`);
-        } else if (message.content === `${prefix}report`) {
+        } else if (strMsg === `${prefix}report`) {
             //var returned = run();
             console.log(message.author.username);
             findAndUpdate(message, 50, "Report");
-        } else if (message.content.startsWith(`${prefix}rank`) && message.guild != null) {
-            var str = message.content.slice(6);
+        } else if (strMsg.startsWith(`${prefix}rank`) && message.guild != null) {
+            var str = message.content.slice(6).toLowerCase();
             //console.log(str+"|");
-            if (str.toLowerCase() === `initiate`) {
+            if (str === `initiate`) {
                 if (message.member.guild.id === `539102696385544232`) {//nm
                     if (message.member.roles.cache.has("539104058070269959")) {
                         message.member.roles.remove("539104058070269959");
@@ -169,7 +186,7 @@ client.on('message', message => {
                         message.channel.send(`Added rank Initiate to <@${message.author.id}>`);
                     }
                 }
-            } else if (str.toLowerCase() === `adept`) {
+            } else if (str === `adept`) {
                 if (message.member.guild.id === `539102696385544232`) {//nm
                     if (message.member.roles.cache.has("539125421191594000")) {
                         message.member.roles.remove("539125421191594000");
@@ -187,7 +204,7 @@ client.on('message', message => {
                         message.channel.send(`Added rank Adept to <@${message.author.id}>`);
                     }
                 }
-            } else if (str.toLowerCase() === `journeyman`) {
+            } else if (str === `journeyman`) {
                 if (message.member.guild.id === `539102696385544232`) {//nm
                     if (message.member.roles.cache.has("539125440556826645")) {
                         message.member.roles.remove("539125440556826645");
@@ -205,7 +222,7 @@ client.on('message', message => {
                         message.channel.send(`Added rank Journeyman to <@${message.author.id}>`);
                     }
                 }
-            } else if (str.toLowerCase() === `expert`) {
+            } else if (str === `expert`) {
                 if (message.member.guild.id === `539102696385544232`) {//nm
                     if (message.member.roles.cache.has("539125513659219978")) {
                         message.member.roles.remove("539125513659219978");
@@ -223,7 +240,7 @@ client.on('message', message => {
                         message.channel.send(`Added rank Expert to <@${message.author.id}>`);
                     }
                 }
-            } else if (str.toLowerCase() === `master`) {
+            } else if (str === `master`) {
                 if (message.member.guild.id === `539102696385544232`) {//nm
                     if (message.member.roles.cache.has("539125532982509568")) {
                         message.member.roles.remove("539125532982509568");
@@ -252,35 +269,58 @@ client.on('message', message => {
                     }
                 }
             }
-        } else if (message.content.startsWith(`${prefix}update`)) {
-            //var returned = run();
-            //console.log(message.author.username);
-            var msg = message.content.split(" ");
-            //console.log(msg[1]);
+        } else if (strMsg.startsWith(`${prefix}update`)) {
+            var msg = strMsg.split(" ");
             var changeNum = parseInt(msg[1]);
             var tReason = "";
-            //console.log(changeNum);
             if (msg.length > 2) {
                 for (var i = 2; i < msg.length; i++) {
-                    tReason += msg[i]+" ";
+                    tReason += msg[i] + " ";
                 }
             } else {
                 tReason = "update"
             }
 
             findAndUpdate(message, changeNum, tReason);
-        } else if (message.content.startsWith(`${prefix}loot`)) {
+        } else if (strMsg.startsWith(`${prefix}loot`)) {
             //var returned = run();
             //console.log(message.author.username);
             addLoot(message);
-        } else if (message.content.startsWith(`${prefix}info`)) {
+        } else if (strMsg.startsWith(`${prefix}info`)) {
             GetInfo(message);
-        } else if (message.content.startsWith(`${prefix}say`)) {
+        } else if (strMsg.startsWith(`${prefix}say`)) {
             var str = message.content.slice(5);
             var list = str.split(" |");
             client.channels.fetch(list[0])
                 .then(channel => channel.send(list[1]))
                 .catch(console.error);
+        } else if (strMsg ===`${prefix}bits`) {
+            var bitsEmbed = new Discord.MessageEmbed()
+                .setColor('#f1ba10')
+                .setTitle(`**Bits**`)
+                .addField(`${prefix}papa`, `${prefix}owlvon`)
+                .addField(`${prefix}sabhir`, `${prefix}cleric`)
+                .addField(`${prefix}zuten`, `${prefix}fool`)
+                .addField(`${prefix}yeet`, `${prefix}acdc`)
+                .setFooter(`Velbot is never going to give you up`);
+            message.channel.send(bitsEmbed);
+        } else if (strMsg === `${prefix}papa`) {
+            message.channel.send(`I can't believe Papa has done this.`);
+        } else if (strMsg === `${prefix}owlvon`) {
+            message.channel.send(`<https://www.youtube.com/watch?v=xtIV4cRP8LQ>`);
+        } else if (strMsg === `${prefix}sabhir`) {
+            message.channel.send(`<https://www.youtube.com/watch?v=PVTXLACzaYc>`);
+        } else if (strMsg === `${prefix}cleric`) {
+            message.channel.send(`<https://www.youtube.com/watch?v=NV-picSBYRM>`);
+        } else if (strMsg === `${prefix}zuten`) {
+            message.channel.send(`<https://www.youtube.com/watch?v=sOnE8j-ikXQ>`);
+        } else if (strMsg === `${prefix}fool`) {
+            message.channel.send(`<https://www.youtube.com/watch?v=n3GOL_KHxX4>`);
+        } else if (strMsg === `${prefix}yeet`) {
+            message.channel.send(`<https://www.youtube.com/watch?v=p1GjT_-rhRw>`);
+        } else if (strMsg === `${prefix}acdc`) {
+            message.channel.send(`If it meets, it beats.`);
+        }
         }
     }
 });
