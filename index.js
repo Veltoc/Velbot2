@@ -32,6 +32,35 @@ client.on('guildMemberAdd', member => {
     }
 
 });
+client.on('messageUpdate', (oldMessage, newMessage) => {
+    const exampleEmbed = new Discord.MessageEmbed()
+        .setColor('#0099ff')
+        .setTitle(`Message edited in ${oldMessage.channel.id} [jump to message](${oldMessage.reference})`)
+        .setAuthor(oldMessage.author.tag, oldMessage.author.avatarURL)
+        .addField('Before', oldMessage.content)
+        .addField('After', newMessage.content)
+        .setTimestamp(new Date())
+        .setFooter(`User ID: ${oldMessage.author.id}`);
+    if (member.guild.id === `539102696385544232`) {
+        client.channels.fetch(`539231042440265728`)
+            .then(channel => {
+                channel.send.message();
+            })
+            .catch(console.error);
+    } else if (member.guild.id === `699498339393208453`) {
+        client.channels.fetch(`539231042440265728`)
+            .then(channel => {
+                channel.send.message();
+            })
+            .catch(console.error);
+    } else if (member.guild.id === `645015625156263977`) {
+        client.channels.fetch(`696844952533073950`)
+            .then(channel => channel.send.message())
+            .catch(console.error);
+    }
+
+});
+
 client.on('message', message => {
     //const defChannel = message.guild.channels.find("name", "crafting");
     //defChannel.send("he");
