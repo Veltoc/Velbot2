@@ -104,9 +104,7 @@ client.on('message', message => {
             else if (strMsg.includes("play despacito")) message.channel.send(`<https://www.youtube.com/watch?v=kJQP7kiw5Fk>`);
             else if (strMsg.includes("hello there")) message.channel.send(`General Kenobi`);
             else if (strMsg.includes("i'm back") || strMsg.includes("im back") || strMsg.includes("i am back")) {
-                //var mem = message.guild.member(client.user);
-                //mem.setNickname("Dad");
-                //setTimeout(dad.bind(mem,message), 1000);
+                dad(message);
             }
         }
     if (strMsg.startsWith(`${prefix}`)) {
@@ -327,9 +325,17 @@ client.on('message', message => {
 //client.login(Token);//BOT_TOKEN is the Client Secret
 
 client.login(process.env.BOT_TOKEN);//BOT_TOKEN is the Client Secret
-function dad(mem,message) {
+async function dad(message) {
+    var mem = message.guild.member(client.user);
+    mem.setNickname("Dad");
+    await sleep(1000);
     message.channel.send(`Hi Back, I'm Dad`);
-    mem.setNickname("Velbot");
+    mem.setNickname("");
+}
+function sleep(millis) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () { resolve(); }, millis);
+    });
 }
 function findAndUpdate(message, amount, reason) {
 
