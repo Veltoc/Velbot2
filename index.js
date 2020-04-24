@@ -1,7 +1,6 @@
 
 const Discord = require("discord.js");
 const config = require("dotenv").config();
-const { prefix } = require('./config.json');
 const fs = require("fs");
 
 const { google } = require("googleapis");
