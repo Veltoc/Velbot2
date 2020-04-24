@@ -61,9 +61,9 @@ client.on('messageDelete', message => {
 client.on('messageUpdate', (oldMessage, newMessage) => {
     
     if (!oldMessage.author.bot && !newMessage.author.bot) {
-        var oldMsg = message.content
+        var oldMsg = oldMessage.content
         if(oldMsg.length > 1000)oldMsg = oldMsg.substring(0,1000)+"...";
-        var newMsg = message.content
+        var newMsg = newMessage.content
         if(newMsg.length > 1000)newMsg = newMsg.substring(0,1000)+"...";
     const exampleEmbed = new Discord.MessageEmbed()
         .setColor('#0099ff')
