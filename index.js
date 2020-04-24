@@ -35,11 +35,12 @@ client.on('guildMemberAdd', member => {
 client.on('messageUpdate', (oldMessage, newMessage) => {
     console.log(oldMessage.content);
     console.log(newMessage.content);
+    console.log(`discordapp.com/channels/${oldMessage.guild.id}/${oldMessage.channel.id}/${oldMessage.id}`);
     if (!oldMessage.author.bot && !newMessage.author.bot) {
     const exampleEmbed = new Discord.MessageEmbed()
         .setColor('#0099ff')
-        .setDescription(`Message edited in ${oldMessage.channel.id} [jump to message](${oldMessage.reference})`)
-        .setAuthor(oldMessage.author.tag, oldMessage.author.avatarURL)
+        .setDescription(`Message edited in ${oldMessage.channel.id} [jump to message](discordapp.com/channels/${oldMessage.guild.id}/${oldMessage.channel.id}/${oldMessage.id})`)
+        .setAuthor(oldMessage.author.tag, oldMessage.author.avatarURL())
         .addField('Before', oldMessage.content)
         .addField('After', newMessage.content)
         .setTimestamp(new Date())
