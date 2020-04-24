@@ -104,9 +104,9 @@ client.on('message', message => {
             else if (strMsg.includes("play despacito")) message.channel.send(`<https://www.youtube.com/watch?v=kJQP7kiw5Fk>`);
             else if (strMsg.includes("hello there")) message.channel.send(`General Kenobi`);
             else if (strMsg.includes("i'm back") || strMsg.includes("im back") || strMsg.includes("i am back")) {
-                var mem = message.guild.member(client.user);
-                mem.setNickname("Dad");
-                setTimeout(dad(mem,message), 1000);
+                //var mem = message.guild.member(client.user);
+                //mem.setNickname("Dad");
+                //setTimeout(dad.bind(mem,message), 1000);
             }
         }
     if (strMsg.startsWith(`${prefix}`)) {
