@@ -139,7 +139,7 @@ client.on('message', message => {
                 .addField(`Get info on an item`, `${prefix}info [item name, or portion of name]`)
                 .addField(`Updating gold`, `${prefix}update [number (can be negative)] [reason(optional)]`)
                 .addField(`Gold from report`, `${prefix}report`)
-                .setFooter(`Velbot provided with :heart: by Veltoc`);
+                .setFooter(`Velbot provided with love by Veltoc`);
             message.channel.send(exampleEmbed);
         } else if (message.content === `${prefix}user-info`) {
             message.channel.send(`Your username: ${message.author.username}\nYour ID: ${message.author.id}`);
