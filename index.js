@@ -33,7 +33,7 @@ client.on('guildMemberAdd', member => {
 });
 client.on('messageDelete', message => {
     if (!message.author.bot) {
-        var msg = message.content
+        var msg = message.content;
         if (msg.length == 0) msg = "unable to retreive message.";
         if (msg.length > 1000) msg = msg.substring(0, 1000) + "...";
         const exampleEmbed = new Discord.MessageEmbed()
@@ -95,15 +95,15 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 client.on('message', message => {
     if (!message.author.bot) {
         var strMsg = message.content;
-        var startChar = bitMsg.substring(0, 1);
-        if (bitMsg.length < 144 && startChar !== "*" && startChar !== `"`) {
-            bitMsg = bitMsg.toLowerCase();
-            if (bitMsg.includes("uwu")) message.channel.send(`Don't you fucking UwU me!`);
-            else if (bitMsg.includes("owo")) message.channel.send(`What's this?`);
-            else if (bitMsg.includes("gloombreaker")) message.channel.send(`Did someone say "THE FAMED BLADE GLOOMBREAKER, CONQUEROR OF DEMONS, SLAYER OF DARKNESS, AND BRINGER OF LIGHT!"?`);
-            else if (bitMsg.includes("play despacito")) message.channel.send(`<https://www.youtube.com/watch?v=kJQP7kiw5Fk>`);
-            else if (bitMsg.includes("hello there")) message.channel.send(`General Kenobi`);
-            else if (bitMsg.includes("i'm back") || bitMsg.includes("im back") || bitMsg.includes("i am back")) {
+        var startChar = strMsg.substring(0, 1);
+        if (strMsg.length < 144 && startChar !== "*" && startChar !== `"`) {
+            strMsg = strMsg.toLowerCase();
+            if (strMsg.includes("uwu")) message.channel.send(`Don't you fucking UwU me!`);
+            else if (strMsg.includes("owo")) message.channel.send(`What's this?`);
+            else if (strMsg.includes("gloombreaker")) message.channel.send(`Did someone say "THE FAMED BLADE GLOOMBREAKER, CONQUEROR OF DEMONS, SLAYER OF DARKNESS, AND BRINGER OF LIGHT!"?`);
+            else if (strMsg.includes("play despacito")) message.channel.send(`<https://www.youtube.com/watch?v=kJQP7kiw5Fk>`);
+            else if (strMsg.includes("hello there")) message.channel.send(`General Kenobi`);
+            else if (strMsg.includes("i'm back") || strMsg.includes("im back") || strMsg.includes("i am back")) {
                 var mem = message.guild.member(client.user);
                 mem.setNickname("Dad");
                 message.channel.send(`Hi Back, I'm Dad`);
