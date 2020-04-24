@@ -32,8 +32,8 @@ client.on('guildMemberAdd', member => {
     }
 
 });
-client.on('messageDelete', (message) => {
-    if (message.author.bot) {
+client.on('messageDelete', message => {
+    if (!message.author.bot) {
         const exampleEmbed = new Discord.MessageEmbed()
             .setColor('#ff470f')
             .setDescription(`**Message sent by ${message.author} deleted in ${message.channel}**`)
