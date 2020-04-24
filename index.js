@@ -41,19 +41,19 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
         .addField('After', newMessage.content)
         .setTimestamp(new Date())
         .setFooter(`User ID: ${oldMessage.author.id}`);
-    if (member.guild.id === `539102696385544232`) {
+    if (oldMessage.guild.id === `539102696385544232`) {
         client.channels.fetch(`539244885937618944`)
             .then(channel => {
                 channel.send.message();
             })
             .catch(console.error);
-    } else if (member.guild.id === `699498339393208453`) {
+    } else if (oldMessage.guild.id === `699498339393208453`) {
         client.channels.fetch(`699815237733580933`)
             .then(channel => {
                 channel.send.message();
             })
             .catch(console.error);
-    } else if (member.guild.id === `645015625156263977`) {
+    } else if (oldMessage.guild.id === `645015625156263977`) {
         client.channels.fetch(`696844952533073950`)
             .then(channel => channel.send.message())
             .catch(console.error);
