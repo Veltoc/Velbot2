@@ -38,7 +38,7 @@ client.on('messageDelete', message => {
             .setColor('#ff470f')
             .setDescription(`**Message sent by ${message.author} deleted in ${message.channel}**`)
             .setAuthor(message.author.tag, message.author.avatarURL())
-            .addField('', message.content)
+            .addField('Message', message.content)
             .setTimestamp(new Date())
             .setFooter(`User ID: ${message.author.id}`);
         if (message.guild.id === `539102696385544232`) {
