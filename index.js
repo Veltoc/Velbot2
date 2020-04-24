@@ -70,7 +70,7 @@ client.on('message', message => {
             var str = message.content.slice(6);
             //console.log(str+"|");
             if (str.toLowerCase() === `initiate`) {
-                if (member.guild.id === `539102696385544232`) {//nm
+                if (message.member.guild.id === `539102696385544232`) {//nm
                     if (message.member.roles.cache.has("539104058070269959")) {
                         message.member.roles.remove("539104058070269959");
                         message.channel.send(`Removed rank Initiate from <@${message.author.id}>`);
@@ -78,7 +78,7 @@ client.on('message', message => {
                         message.member.roles.add("539104058070269959");
                         message.channel.send(`Added rank Initiate to <@${message.author.id}>`);
                     }
-                } else if (member.guild.id === `699498339393208453`) {//nmp
+                } else if (message.member.guild.id === `699498339393208453`) {//nmp
                     if (message.member.roles.cache.has("700580884377763870")) {
                         message.member.roles.remove("700580884377763870");
                         message.channel.send(`Removed rank Initiate from <@${message.author.id}>`);
@@ -88,7 +88,7 @@ client.on('message', message => {
                     }
                 }
             } else if (str.toLowerCase() === `adept`) {
-                if (member.guild.id === `539102696385544232`) {//nm
+                if (message.member.guild.id === `539102696385544232`) {//nm
                     if (message.member.roles.cache.has("539125421191594000")) {
                         message.member.roles.remove("539125421191594000");
                         message.channel.send(`Removed rank Adept from <@${message.author.id}>`);
@@ -96,7 +96,7 @@ client.on('message', message => {
                         message.member.roles.add("539125421191594000");
                         message.channel.send(`Added rank Adept to <@${message.author.id}>`);
                     }
-                } else if (member.guild.id === `699498339393208453`) {//nmp
+                } else if (message.member.guild.id === `699498339393208453`) {//nmp
                     if (message.member.roles.cache.has("700580868808245259")) {
                         message.member.roles.remove("700580868808245259");
                         message.channel.send(`Removed rank Adept from <@${message.author.id}>`);
@@ -106,7 +106,7 @@ client.on('message', message => {
                     }
                 }
             } else if (str.toLowerCase() === `journeyman`) {
-                if (member.guild.id === `539102696385544232`) {//nm
+                if (message.member.guild.id === `539102696385544232`) {//nm
                     if (message.member.roles.cache.has("539125440556826645")) {
                         message.member.roles.remove("539125440556826645");
                         message.channel.send(`Removed rank Journeyman from <@${message.author.id}>`);
@@ -114,7 +114,7 @@ client.on('message', message => {
                         message.member.roles.add("539125440556826645");
                         message.channel.send(`Added rank Journeyman to <@${message.author.id}>`);
                     }
-                } else if (member.guild.id === `699498339393208453`) {//nmp
+                } else if (message.member.guild.id === `699498339393208453`) {//nmp
                     if (message.member.roles.cache.has("700580827343355995")) {
                         message.member.roles.remove("700580827343355995");
                         message.channel.send(`Removed rank Journeyman from <@${message.author.id}>`);
@@ -124,7 +124,7 @@ client.on('message', message => {
                     }
                 }
             } else if (str.toLowerCase() === `expert`) {
-                if (member.guild.id === `539102696385544232`) {//nm
+                if (message.member.guild.id === `539102696385544232`) {//nm
                     if (message.member.roles.cache.has("539125513659219978")) {
                         message.member.roles.remove("539125513659219978");
                         message.channel.send(`Removed rank Expert from <@${message.author.id}>`);
@@ -132,7 +132,7 @@ client.on('message', message => {
                         message.member.roles.add("539125513659219978");
                         message.channel.send(`Added rank Expert to <@${message.author.id}>`);
                     }
-                } else if (member.guild.id === `699498339393208453`) {//nmp
+                } else if (message.member.guild.id === `699498339393208453`) {//nmp
                     if (message.member.roles.cache.has("700580788781187134")) {
                         message.member.roles.remove("700580788781187134");
                         message.channel.send(`Removed rank Expert from <@${message.author.id}>`);
@@ -142,7 +142,7 @@ client.on('message', message => {
                     }
                 }
             } else if (str.toLowerCase() === `master`) {
-                if (member.guild.id === `539102696385544232`) {//nm
+                if (message.member.guild.id === `539102696385544232`) {//nm
                     if (message.member.roles.cache.has("539125532982509568")) {
                         message.member.roles.remove("539125532982509568");
                         message.channel.send(`Removed rank Master from <@${message.author.id}>`);
@@ -150,7 +150,7 @@ client.on('message', message => {
                         message.member.roles.add("539125532982509568");
                         message.channel.send(`Added rank Master to <@${message.author.id}>`);
                     }
-                } else if (member.guild.id === `699498339393208453`) {//nmp
+                } else if (message.member.guild.id === `699498339393208453`) {//nmp
                     if (message.member.roles.cache.has("700580760616435732")) {
                         message.member.roles.remove("700580760616435732");
                         message.channel.send(`Removed rank Master from <@${message.author.id}>`);
@@ -160,7 +160,7 @@ client.on('message', message => {
                     }
                 }
             } else if (str.toLowerCase() === `artistic individual`) {
-                if (member.guild.id === `539102696385544232`) {//nm
+                if (message.member.guild.id === `539102696385544232`) {//nm
                     if (message.member.roles.cache.has("539125532982509568")) {
                         message.member.roles.remove("539125532982509568");
                         message.channel.send(`Removed rank Artistic Individual from <@${message.author.id}>`);
