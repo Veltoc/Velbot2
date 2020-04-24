@@ -32,6 +32,30 @@ client.on('guildMemberAdd', member => {
     }
 
 });
+client.on('messageDelete', (message) => {
+    if (!oldMessage.author.bot && !newMessage.author.bot) {
+        const exampleEmbed = new Discord.MessageEmbed()
+            .setColor('#ff470f')
+            .setDescription(`**Message sent by ${message.author} deleted in ${message.channel}**`)
+            .setAuthor(message.author.tag, message.author.avatarURL())
+            .addField('', message.content)
+            .setTimestamp(new Date())
+            .setFooter(`User ID: ${message.author.id}`);
+        if (oldMessage.guild.id === `539102696385544232`) {
+            client.channels.fetch(`539244885937618944`)
+                .then(channel => channel.send(exampleEmbed))
+                .catch(console.error);
+        } else if (oldMessage.guild.id === `699498339393208453`) {
+            client.channels.fetch(`699815237733580933`)
+                .then(channel => channel.send(exampleEmbed))
+                .catch(console.error);
+        } else if (oldMessage.guild.id === `645015625156263977`) {
+            client.channels.fetch(`696844952533073950`)
+                .then(channel => channel.send(exampleEmbed))
+                .catch(console.error);
+        }
+    }
+});
 client.on('messageUpdate', (oldMessage, newMessage) => {
     //console.log(oldMessage.content);
     //console.log(newMessage.content);
@@ -39,7 +63,7 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
     if (!oldMessage.author.bot && !newMessage.author.bot) {
     const exampleEmbed = new Discord.MessageEmbed()
         .setColor('#0099ff')
-        .setDescription(`Message edited in ${oldMessage.channel} [jump to message](https://discordapp.com/channels/${oldMessage.guild.id}/${oldMessage.channel.id}/${oldMessage.id})`)
+        .setDescription(`**Message edited in** ${oldMessage.channel} [jump to message](https://discordapp.com/channels/${oldMessage.guild.id}/${oldMessage.channel.id}/${oldMessage.id})`)
         .setAuthor(oldMessage.author.tag, oldMessage.author.avatarURL())
         .addField('Before', oldMessage.content)
         .addField('After', newMessage.content)
