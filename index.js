@@ -106,8 +106,7 @@ client.on('message', message => {
             else if (strMsg.includes("i'm back") || strMsg.includes("im back") || strMsg.includes("i am back")) {
                 var mem = message.guild.member(client.user);
                 mem.setNickname("Dad");
-                message.channel.send(`Hi Back, I'm Dad`);
-                mem.setNickname("Velbot");
+                setTimeout(dad(mem), 1000);
             }
         }
     if (strMsg.startsWith(`${prefix}`)) {
@@ -328,7 +327,10 @@ client.on('message', message => {
 //client.login(Token);//BOT_TOKEN is the Client Secret
 
 client.login(process.env.BOT_TOKEN);//BOT_TOKEN is the Client Secret
-
+function dad(mem) {
+    message.channel.send(`Hi Back, I'm Dad`);
+    mem.setNickname("Velbot");
+}
 function findAndUpdate(message, amount, reason) {
 
     const range = "Player Tracker!A2:A32";
