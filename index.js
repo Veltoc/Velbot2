@@ -42,13 +42,13 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
         .setTimestamp(new Date())
         .setFooter(`User ID: ${oldMessage.author.id}`);
     if (member.guild.id === `539102696385544232`) {
-        client.channels.fetch(`539231042440265728`)
+        client.channels.fetch(`539244885937618944`)
             .then(channel => {
                 channel.send.message();
             })
             .catch(console.error);
     } else if (member.guild.id === `699498339393208453`) {
-        client.channels.fetch(`539231042440265728`)
+        client.channels.fetch(`699815237733580933`)
             .then(channel => {
                 channel.send.message();
             })
