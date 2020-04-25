@@ -310,7 +310,7 @@ client.on('message', async message => {
                     }
                 } else {
                     var str = message.content.slice(6);
-                    dispatcher = connection.play(ytdl(str, { filter: 'audioonly' }));
+                    dispatcher = connection.play(ytdl(str, { filter: 'audioonly', volume: 0.5 }));
                     dispatcher.on('finish', () => {
                         console.log('Finished playing!');
                         dispatcher.destroy();
