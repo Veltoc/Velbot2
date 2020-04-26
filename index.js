@@ -15,6 +15,12 @@ var guild = "539102696385544232";
 const prefix = "?";
 var connection = null;
 var dispatcher = null;
+var loop = false;
+var queue = [];
+var time = [];
+var title = [];
+var queueTime = 0;
+var voiceChannel;
 
 client.on("ready", () => {
     console.log(`Logged in as ${client.user.tag} `);
@@ -65,6 +71,8 @@ client.on('messageDelete', message => {
 client.on('messageUpdate', (oldMessage, newMessage) => {
 
     if (!oldMessage.author.bot && !newMessage.author.bot) {
+        if (oldMessage.embeds.length > 0) return;
+        if (newMessage.embeds.length > 0) return;
         var oldMsg = oldMessage.content;
         if (oldMsg.length == 0) oldMsg = "unable to retreive message.";
         if (oldMsg.length > 1000) oldMsg = oldMsg.substring(0, 1000) + "...";
@@ -150,6 +158,7 @@ client.on('message', async message => {
                     .setTitle(`**Velbot Help Menu**`)
                     .setDescription(`**Prefix: ${prefix}**`)
                     //.setAuthor(oldMessage.author.tag, oldMessage.author.avatarURL())
+                    .addField(`Music help`, `${prefix}music`)
                     .addField(`List ranks`, `${prefix}ranks`)
                     .addField(`Join ranks`, `${prefix}rank [rank]`)
                     .addField(`Entering Materials`, `${prefix}loot [Name] | [Material name] | [Amount] | [Type] | [attunement] | [Description] | [Tool] | [Time]`)
@@ -288,9 +297,48 @@ client.on('message', async message => {
                 addLoot(message);
             } else if (strMsg.startsWith(`${prefix}info`)) {
                 GetInfo(message);
+            } else if (strMsg.startsWith(`${prefix}skip`)) {
+                queue.shift();
+                message.channel.send(`✅ Skipped ${title.shift()}`);
+                queueTime -= time.shift();
+                if (queue.length > 0) {
+                    dispatcher = connection.play(ytdl(queue[0], { filter: 'audioonly', volume: 0.5 }));
+                } else {
+                    console.log('closing dispatcher');
+                    dispatcher.destroy();
+                    dispatcher = null;
+                    if (connection != null) {
+                        connection.disconnect();
+                        connection = null;
+                    }
+                    queue = [];
+                    time = [];
+                    title = [];
+                    queueTime = 0;
+                    loop = false;
+                    voiceChannel = null;
+                }
+            } else if (strMsg.startsWith(`${prefix}loop`)) {
+                loop = !loop;
+                message.react(`white_check_mark`);
+            } else if (strMsg.startsWith(`${prefix}queue`)) {
+                var len = queue.length;
+                if (len > 10) len = 10;
+                var desc = `**Showing ${len} of ${queue.length} songs. Queue time: ${toHHMMSS(queueTime)}**\n`;
+                for (var i = 0; i < len; i++) {
+                    desc += `**${i+1}.**[${toHHMMSS(time[i])}] [${title[i]}](${queue[i]})\n`;
+                }
+                var qEmbed = new Discord.MessageEmbed()
+                    .setTitle(`Music Queue`)
+                    .setColor('#f1ba10')
+                    .setDescription(desc)
+                    .setFooter(`use ${prefix}play [youtubeUrl] to add a song`);
+                message.channel.send(qEmbed);
             } else if (strMsg.startsWith(`${prefix}join`)) {
                 if (message.member.voice.channel) {
                     connection = await message.member.voice.channel.join();
+                    voiceChannel = message.member.voice.channel;
+                    message.react('✅');
                 } else {
                     message.reply('You need to join a voice channel first!');
                 }
@@ -298,6 +346,7 @@ client.on('message', async message => {
                 if (connection == null) {
                     if (message.member.voice.channel) {
                         connection = await message.member.voice.channel.join();
+                        voiceChannel = message.member.voice.channel;
                     } else {
                         message.reply('You need to join a voice channel first!');
                         return;
@@ -307,20 +356,72 @@ client.on('message', async message => {
                 if (strMsg.length < 6) {
                     if (dispatcher != null) {
                         dispatcher.resume();
+                        message.react(`✅`);
                     }
                 } else {
                     var str = message.content.slice(6);
-                    dispatcher = connection.play(ytdl(str, { filter: 'audioonly', volume: 0.5 }));
-                    dispatcher.on('finish', () => {
-                        console.log('Finished playing!');
-                        dispatcher.destroy();
-                        dispatcher = null;
-                    });
+                    if (str.includes(".com")) {
+                        var info = await ytdl.getBasicInfo(str);
+                        var seconds = parseInt(info.length_seconds);
+                        queueTime += seconds;
+                        time.push(seconds); //toHHMMSS(seconds)
+                        title.push(info.title);
+                        queue.push(str);
+                        console.log(queue.length);
+                        if (queue.length == 1) dispatcher = connection.play(ytdl(queue[0], { filter: 'audioonly', volume: 0.5 }));
+                        message.react(`✅`);
+                        dispatcher.on('finish', () => {
+                            console.log('Finished playing!');
+                            if (voiceChannel.members.length == 0) {
+                                console.log('closing dispatcher');
+                                dispatcher.destroy();
+                                dispatcher = null;
+                                if (connection != null) {
+                                    connection.disconnect();
+                                    connection = null;
+                                }
+                                queue = [];
+                                time = [];
+                                title = [];
+                                queueTime = 0;
+                                loop = false;
+                                voiceChannel = null;
+                            } else {
+                                if (loop) {
+                                    queue.push(queue.shift());
+                                    time.push(time.shift());
+                                    title.push(title.shift());
+                                } else {
+                                    queue.shift();
+                                    title.shift();
+                                    queueTime - time.shift();
+                                }
+                                if (queue.length > 0) {
+                                    dispatcher = connection.play(ytdl(queue[0], { filter: 'audioonly', volume: 0.5 }));
+                                } else {
+                                    console.log('closing dispatcher');
+                                    dispatcher.destroy();
+                                    dispatcher = null;
+                                    if (connection != null) {
+                                        connection.disconnect();
+                                        connection = null;
+                                    }
+                                    queue = [];
+                                    time = [];
+                                    title = [];
+                                    queueTime = 0;
+                                    loop = false;
+                                    voiceChannel = null;
+                                }
+                            }
+                        });
+                    }
                 }
 
             } else if (strMsg.startsWith(`${prefix}pause`)) {
                 if (dispatcher != null) {
                     dispatcher.pause();
+                    message.channel.send(":white_check_mark: Music has been paused");
                 }
             } else if (strMsg.startsWith(`${prefix}leave`)) {
                 if (dispatcher != null) {
@@ -329,9 +430,30 @@ client.on('message', async message => {
                 } if (connection != null) {
                     connection.disconnect();
                     connection = null;
+                    message.react(`✅`);
                 }
-            }
-            else if (strMsg.startsWith(`${prefix}say`)) {
+                queue = [];
+                time = [];
+                title = [];
+                queueTime = 0;
+                loop = false;
+                voiceChannel = null;
+            } else if (strMsg === `${prefix}music`) {
+                const exampleEmbed = new Discord.MessageEmbed()
+                    .setColor('#f1ba10')
+                    .setTitle(`**Music Help Menu**`)
+                    //.setAuthor(oldMessage.author.tag, oldMessage.author.avatarURL())
+                    .addField(`View the queue`, `${prefix}queue`)
+                    .addField(`Queue a song`, `${prefix}play [youtubeUrl]`)
+                    .addField(`Pause playback`, `${prefix}pause`)
+                    .addField(`Resume playback`, `${prefix}play`)
+                    .addField(`Skip a song`, `${prefix}skip`)
+                    .addField(`Toggle queue loop`, `${prefix}loop`)
+                    .addField(`Join channel`, `${prefix}join`)
+                    .addField(`Leave channel`, `${prefix}leave`)
+                    .setFooter(`[beta] Please report any problems`);
+                message.channel.send(exampleEmbed);
+            } else if (strMsg.startsWith(`${prefix}say`)) {
                 var str = message.content.slice(5);
                 var list = str.split(" |");
                 client.channels.fetch(list[0])
@@ -366,8 +488,35 @@ client.on('message', async message => {
             }
         }
     }
+    if (dispatcher != null && dispatcher.pausedTime > 120000) {
+        dispatcher.destroy();
+        dispatcher = null;
+        if (connection != null) {
+            connection.disconnect();
+            connection = null;
+        }
+        queue = [];
+        time = [];
+        title = [];
+        queueTime = 0;
+        loop = false;
+        voiceChannel = null;
+    } 
 });
 
+
+
+var toHHMMSS = (secs) => {
+    var sec_num = parseInt(secs, 10)
+    var hours = Math.floor(sec_num / 3600)
+    var minutes = Math.floor(sec_num / 60) % 60
+    var seconds = sec_num % 60
+
+    return [hours, minutes, seconds]
+        .map(v => v < 10 ? "0" + v : v)
+        .filter((v, i) => v !== "00" || i > 0)
+        .join(":")
+}
 
 
 
